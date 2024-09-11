@@ -17,7 +17,7 @@ To get local copy up and running follow these steps.
 
 ### Prerequisites
 
-- backend_publisher (see instructions [here](https://github.com/prtrymer/backend_publisher))
+- backend_publisher (see instructions [here](https://github.com/prtrymer/publisher))
 - yarn `npm i -g yarn`
 
 ### Installation
