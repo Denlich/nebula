@@ -1,11 +1,7 @@
-import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage } from '@/pages/home';
-import { Routes } from './routes';
+import { UserRouter } from './userRouter';
+import { AdminRouter } from './adminRouter';
 
-export const appRouter = createBrowserRouter([
-  {
-    path: Routes.HOME,
-    element: <HomePage />,
-  },
-]);
+export const appRouter = createBrowserRouter(
+  window.isCurrentHostEqualsCore ? UserRouter : AdminRouter
+);

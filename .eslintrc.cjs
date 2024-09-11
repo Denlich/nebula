@@ -50,6 +50,7 @@ module.exports = {
       },
     ],
     'react-refresh/only-export-components': 'off',
+    'no-console': 'off',
   },
   parserOptions: {
     ecmaVersion: 'latest',
