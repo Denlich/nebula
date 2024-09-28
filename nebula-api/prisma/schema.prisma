@@ -14,9 +14,15 @@ model User {
   firstName String
   lastName  String
   avatar    String?
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   cart      Cart?
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Cart {
