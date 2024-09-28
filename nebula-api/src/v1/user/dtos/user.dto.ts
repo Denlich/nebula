@@ -1,3 +1,4 @@
+import { Role } from '@prisma/client';
 import { IsNotEmpty, Matches, MaxLength, MinLength } from 'class-validator';
 import {
   ENG_REGEX,
@@ -37,4 +38,6 @@ export class UserDto {
   password: string;
 
   avatar?: string;
+
+  role?: Role;
 }
