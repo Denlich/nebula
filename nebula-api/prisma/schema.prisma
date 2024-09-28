@@ -44,6 +44,10 @@ model Book {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   cartBooks   BooksInCart[]
+  Author      Author?       @relation(fields: [authorId], references: [id])
+  authorId    String?
+  Publisher   Publisher?    @relation(fields: [publisherId], references: [id])
+  publisherId String?
 }
 
 model BooksInCart {
@@ -56,4 +60,26 @@ model BooksInCart {
   bookId    String
 
   @@id([cartId, bookId])
+}
+
+model Author {
+  id          String    @id @default(cuid())
+  name        String
+  biography   String
+  avatar      String?
+  dateOfBirth DateTime
+  dateOfDeath DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  books       Book[]
+}
+
+model Publisher {
+  id        String   @id @default(cuid())
+  name      String
+  biography String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     Book[]
 }
