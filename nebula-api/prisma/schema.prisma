@@ -64,7 +64,8 @@ model BooksInCart {
 
 model Author {
   id          String    @id @default(cuid())
-  name        String
+  firstName   String
+  lastName    String
   biography   String
   avatar      String?
   dateOfBirth DateTime
