@@ -12,6 +12,7 @@ export class UserMapper {
       id: user.id,
       username: user.username,
       cartId: user.cart.id,
+      role: user.role,
     };
   }
 }
