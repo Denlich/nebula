@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { PublisherRepository } from '../common/database/repositories';
 
-import { PublisherDto } from './dtos';
+import { PublisherDto, PublisherUpdateDto } from './dtos';
 
 @Injectable()
 export class PublisherService {
@@ -20,8 +20,8 @@ export class PublisherService {
     return await this.publisherRepository.create(publisherDto);
   }
 
-  async updatePublisher(id: string, publisherDto: PublisherDto) {
-    return await this.publisherRepository.update(id, publisherDto);
+  async updatePublisher(id: string, updatePublisherDto: PublisherUpdateDto) {
+    return await this.publisherRepository.update(id, updatePublisherDto);
   }
 
   async deletePublisher(id: string) {

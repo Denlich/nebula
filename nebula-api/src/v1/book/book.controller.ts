@@ -6,47 +6,96 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
 } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
-import { Roles } from '../common/decorators';
 import { JwtAuthGuard } from '../common/security';
 import { RoleGuard } from '../common/security/guards';
+import { ApiEndpoint } from '../common/utils/documentation';
 
-import { BookDto } from './dtos';
 import { BookService } from './book.service';
+import { BookDto, BookUpdateDto } from './dtos';
 
+@ApiTags('book')
 @Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
+  @ApiOkResponse({
+    description: 'Return all books',
+    type: [BookDto],
+  })
+  @ApiEndpoint({
+    summary: 'Get all books',
+  })
   @Get()
   async findAll() {
     return this.bookService.findAll();
   }
 
-  @Get('/:id')
+  @ApiOkResponse({
+    description: 'Return book by id',
+    type: BookDto,
+  })
+  @ApiEndpoint({
+    summary: 'Get book by id',
+  })
+  @Get(':id')
   async findById(id: string) {
     return this.bookService.findById(id);
   }
 
-  @Roles('ADMIN')
-  @UseGuards(JwtAuthGuard, RoleGuard)
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Create new book',
+    type: BookDto,
+  })
+  @ApiBody({
+    type: BookDto,
+  })
+  @ApiEndpoint({
+    summary: 'Create new book',
+    guards: [JwtAuthGuard, RoleGuard],
+    roles: ['ADMIN'],
+  })
   @Post()
   async create(@Body() body: BookDto) {
     return this.bookService.create(body);
   }
 
-  @Roles('ADMIN')
-  @UseGuards(JwtAuthGuard, RoleGuard)
-  @Patch('/:id')
-  async update(@Param('id') id: string, @Body() body: BookDto) {
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Update the book',
+    type: BookUpdateDto,
+  })
+  @ApiBody({
+    type: BookUpdateDto,
+  })
+  @ApiEndpoint({
+    summary: 'Update the book',
+    guards: [JwtAuthGuard, RoleGuard],
+    roles: ['ADMIN'],
+  })
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() body: BookUpdateDto) {
     return this.bookService.update(id, body);
   }
 
-  @Roles('ADMIN')
-  @UseGuards(JwtAuthGuard, RoleGuard)
-  @Delete('/:id')
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Delete the book',
+  })
+  @ApiEndpoint({
+    summary: 'Delete the book',
+    guards: [JwtAuthGuard, RoleGuard],
+    roles: ['ADMIN'],
+  })
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     return this.bookService.delete(id);
   }

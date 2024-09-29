@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { BookRepository } from '../common/database/repositories';
-import { BookDto } from './dtos';
+import { BookDto, BookUpdateDto } from './dtos';
 
 @Injectable()
 export class BookService {
@@ -19,8 +19,8 @@ export class BookService {
     return this.bookRepository.create(bookDto);
   }
 
-  async update(id: string, bookDto: BookDto) {
-    return this.bookRepository.update(id, bookDto);
+  async update(id: string, bookUpdateDto: BookUpdateDto) {
+    return this.bookRepository.update(id, bookUpdateDto);
   }
 
   async delete(id: string) {
