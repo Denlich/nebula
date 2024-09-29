@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   UseGuards,
@@ -39,14 +40,14 @@ export class BookController {
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Patch('/:id')
-  async update(id: string, @Body() body: BookDto) {
+  async update(@Param('id') id: string, @Body() body: BookDto) {
     return this.bookService.update(id, body);
   }
 
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Delete('/:id')
-  async delete(id: string) {
+  async delete(@Param('id') id: string) {
     return this.bookService.delete(id);
   }
 }
