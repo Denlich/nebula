@@ -38,7 +38,6 @@ model Book {
   id          String        @id @default(cuid())
   title       String
   price       Float
-  author      String
   description String
   image       String?
   createdAt   DateTime      @default(now())
