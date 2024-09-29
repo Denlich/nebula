@@ -38,12 +38,17 @@ model Book {
   id          String        @id @default(cuid())
   title       String
   price       Float
-  author      String
   description String
   image       String?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   cartBooks   BooksInCart[]
+  Author      Author?       @relation(fields: [authorId], references: [id])
+  authorId    String?
+  Publisher   Publisher?    @relation(fields: [publisherId], references: [id])
+  publisherId String?
+  Category    Category?     @relation(fields: [categoryId], references: [id])
+  categoryId  String?
 }
 
 model BooksInCart {
@@ -56,4 +61,35 @@ model BooksInCart {
   bookId    String
 
   @@id([cartId, bookId])
+}
+
+model Author {
+  id          String    @id @default(cuid())
+  firstName   String
+  lastName    String
+  biography   String
+  avatar      String?
+  dateOfBirth DateTime
+  dateOfDeath DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  books       Book[]
+}
+
+model Publisher {
+  id        String   @id @default(cuid())
+  name      String
+  biography String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     Book[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     Book[]
 }
