@@ -48,6 +48,8 @@ model Book {
   authorId    String?
   Publisher   Publisher?    @relation(fields: [publisherId], references: [id])
   publisherId String?
+  Category    Category?     @relation(fields: [categoryId], references: [id])
+  categoryId  String?
 }
 
 model BooksInCart {
@@ -80,6 +82,14 @@ model Publisher {
   name      String
   biography String
   avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     Book[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   books     Book[]
